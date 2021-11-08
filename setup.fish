@@ -5,7 +5,7 @@ set -e fish_user_paths[0..-1]
 set DOTPATH $HOME/.dotfiles
 
 
-for file in ".vimrc" ".gitconfig" ".config/fish/fish.config" ".config/fish/fish_plugins"
+for file in ".vimrc" ".gitconfig" ".config/fish/config.fish" ".config/fish/fish_plugins"
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
