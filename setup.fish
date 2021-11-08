@@ -1,9 +1,21 @@
 #!/usr/bin/env fish
 
-set -e fish_user_paths[0..-1]
+for cmd in "git"
+    if not type -q $cmd
+        echo $cmd "is required."
+        exit 1
+    end
+end
+
 
 set DOTPATH $HOME/.dotfiles
 
+if not test -d $DOTPATH
+    git clone git@github.com:hayashikun/dotfiles.git $DOTPATH
+end
+
+
+set -e fish_user_paths[0..-1]
 
 for file in ".vimrc" ".gitconfig" ".config/fish/config.fish" ".config/fish/fish_plugins"
   ln -snfv $DOTPATH/$file $HOME/$file
