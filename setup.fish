@@ -14,6 +14,7 @@ if not test -d $DOTPATH
     git clone git@github.com:hayashikun/dotfiles.git $DOTPATH
 end
 
+cd $DOTPATH
 
 set -e fish_user_paths[0..-1]
 
@@ -43,7 +44,7 @@ set -x PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 
-# cargo
+# rustup
 if not type -q rustup
    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 end
@@ -55,3 +56,24 @@ rustup update
 
 cargo install bat exa
 
+
+# nodenv
+if not test -d $HOME/.nodenv
+    git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
+    cd $HOME/.nodenv && src/configure && make -C src
+end
+
+set -Ux fish_user_paths $HOME/.nodenv/bin $fish_user_paths
+
+if not test -d $HOME/.nodenv/plugins/node-build
+    git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
+end
+
+if not test -d $HOME/.nodenv/plugins/node-build-update-defs
+    git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
+end
+
+
+cd $DOTPATH
+
+exec fish
