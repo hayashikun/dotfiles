@@ -1,11 +1,20 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'google/vim-searchindex'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
+Plug 'cocopon/iceberg.vim'
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 call plug#end()
-
 
 set clipboard=unnamed,unnamedplus
 set completeopt=menuone
@@ -37,6 +46,17 @@ set showmatch
 set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
 
+inoremap <C-j>  <down>
+inoremap <C-k>  <up>
+inoremap <C-h>  <left>
+inoremap <C-l>  <right>
+
 colorscheme desert
 highlight LineNr ctermfg=darkyellow
+
+let g:lsp_diagnostics_echo_cursor = 1
+autocmd BufWritePre <buffer> LspDocumentFormatSync
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
