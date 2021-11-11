@@ -45,6 +45,7 @@ set number
 set showmatch
 set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
+set fileformat=unix
 
 inoremap <C-j>  <down>
 inoremap <C-k>  <up>
