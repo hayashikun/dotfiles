@@ -51,6 +51,11 @@ inoremap <C-j>  <down>
 inoremap <C-k>  <up>
 inoremap <C-h>  <left>
 inoremap <C-l>  <right>
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
 
 colorscheme desert
 highlight LineNr ctermfg=darkyellow
