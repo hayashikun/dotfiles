@@ -14,6 +14,10 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
+
 call plug#end()
 
 set clipboard=unnamed,unnamedplus
@@ -62,7 +66,19 @@ highlight LineNr ctermfg=darkyellow
 
 let g:lsp_diagnostics_echo_cursor = 1
 autocmd BufWritePre <buffer> LspDocumentFormatSync
+nnoremap <C-m> :LspDocumentFormat<CR>
 
 inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+" Expand or jump
+imap <expr><C-p>  vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-p>'
+smap <expr><C-p>  vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-p>'
+
+" Jump forward or backward
+imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+smap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+smap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 
