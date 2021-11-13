@@ -51,11 +51,11 @@ inoremap <C-j>  <down>
 inoremap <C-k>  <up>
 inoremap <C-h>  <left>
 inoremap <C-l>  <right>
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
+inoremap {  {}<LEFT>
+inoremap [  []<LEFT>
+inoremap (  ()<LEFT>
+inoremap "  ""<LEFT>
+inoremap '  ''<LEFT>
 
 colorscheme desert
 highlight LineNr ctermfg=darkyellow
@@ -63,6 +63,6 @@ highlight LineNr ctermfg=darkyellow
 let g:lsp_diagnostics_echo_cursor = 1
 autocmd BufWritePre <buffer> LspDocumentFormatSync
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
