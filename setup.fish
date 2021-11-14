@@ -22,12 +22,24 @@ for file in ".vimrc" ".gitconfig" ".config/fish/config.fish" ".config/fish/fish_
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
+if not test -d $DOTPATH/tmp
+    mkdir $DOTPATH/tmp
+end
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
     curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 end
 fisher update
+
+# powerline
+cd $DOTPATH/tmp
+if not test -e $DOTPATH/tmp/font
+    git clone https://github.com/powerline/fonts.git --depth=1
+end
+cd fonts
+git pull
+./install.sh
 
 
 # vim-plug
