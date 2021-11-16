@@ -34,7 +34,7 @@ fisher update
 
 # powerline
 cd $DOTPATH/tmp
-if not test -e $DOTPATH/tmp/font
+if not test -e $DOTPATH/tmp/fonts
     git clone https://github.com/powerline/fonts.git --depth=1
 end
 cd fonts
