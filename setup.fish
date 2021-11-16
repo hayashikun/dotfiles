@@ -18,7 +18,7 @@ cd $DOTPATH
 
 set -e fish_user_paths[0..-1]
 
-for file in ".vimrc" ".gitconfig" ".config/fish/config.fish" ".config/fish/fish_plugins" ".config/pycodestyle"
+for file in (cat link_files)
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
