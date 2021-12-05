@@ -86,6 +86,14 @@ if not test -d $HOME/.nodenv/plugins/node-build-update-defs
 end
 
 
+# haskell
+if not test -d $HOME/.ghcup
+    curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+end
+set -Ux fish_user_paths ~/.ghcup/bin $fish_user_paths
+set -Ux fish_user_paths ~/.cabal/bin $fish_user_paths
+ghcup upgrade
+
 cd $DOTPATH
 
 exec fish
