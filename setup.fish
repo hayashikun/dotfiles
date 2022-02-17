@@ -18,7 +18,7 @@ cd $DOTPATH
 
 set -e fish_user_paths[0..-1]
 
-for file in ".vimrc" ".gitconfig" ".config/fish/config.fish" ".config/fish/fish_plugins" ".config/pycodestyle" ".config/helix/config.toml"
+for file in (cat link_files)
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
@@ -85,6 +85,7 @@ if not test -d $HOME/.nodenv/plugins/node-build-update-defs
     git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
 end
 
+
 # helix
 cd $DOTPATH/.cache
 if not test -d $DOTPATH/.cache/helix
@@ -94,6 +95,15 @@ cd helix
 git pull --recurse-submodules
 cargo install --path helix-term
 set -x HELIX_RUNTIME $DOTPATH/.cache/helix/runtime
+
+
+# haskell
+if not test -d $HOME/.ghcup
+    curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+end
+set -Ux fish_user_paths ~/.ghcup/bin $fish_user_paths
+set -Ux fish_user_paths ~/.cabal/bin $fish_user_paths
+ghcup upgrade
 
 cd $DOTPATH
 
