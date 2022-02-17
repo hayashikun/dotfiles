@@ -21,11 +21,11 @@ set DOTPATH $HOME/.dotfiles
 
 if not test -d $DOTPATH
     if test $HTTPS_REPO
-        set REPO_URL https://github.com/hayashikun/dotfiles.git
+        set REPO_URL "https://github.com/hayashikun/dotfiles.git"
     else
-        set REPO_URL git@github.com:hayashikun/dotfiles.git
+        set REPO_URL "git@github.com:hayashikun/dotfiles.git"
     end
-    git clone $URL $DOTPATH
+    git clone $REPO_URL $DOTPATH
 end
 
 cd $DOTPATH
