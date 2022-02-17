@@ -1,5 +1,12 @@
 #!/usr/bin/env fish
 
+for a in $argv
+    switch $a
+        case "--skip-helix"
+            set SKIP_HELIX 1
+    end
+end
+
 for cmd in "git"
     if not type -q $cmd
         echo $cmd "is required."
@@ -26,11 +33,13 @@ if not test -d $DOTPATH/.cache
     mkdir $DOTPATH/.cahce
 end
 
+
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
     curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 end
 fisher update
+
 
 # powerline
 cd $DOTPATH/.cache
@@ -58,14 +67,12 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 # rustup
 if not type -q rustup
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 end
 
 set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
-
 rustup install stable
 rustup update
-
 cargo install bat exa
 
 
@@ -75,7 +82,7 @@ if not test -d $HOME/.nodenv
     cd $HOME/.nodenv && src/configure && make -C src
 end
 
-set -Ux fish_user_paths $HOME/.nodenv/bin $fish_user_paths
+set -U fish_user_paths $HOME/.nodenv/bin $fish_user_paths
 
 if not test -d $HOME/.nodenv/plugins/node-build
     git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
@@ -87,22 +94,28 @@ end
 
 
 # helix
-cd $DOTPATH/.cache
-if not test -d $DOTPATH/.cache/helix
-    git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
+if not test $SKIP_HELIX
+    cd $DOTPATH/.cache
+    if not test -d $DOTPATH/.cache/helix
+        git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
+    end
+    cd helix
+    git pull --recurse-submodules
+    cargo install --path helix-term
+    set -Ux HELIX_RUNTIME $DOTPATH/.cache/helix/runtime
+    cd $DOTPATH
 end
-cd helix
-git pull --recurse-submodules
-cargo install --path helix-term
-set -x HELIX_RUNTIME $DOTPATH/.cache/helix/runtime
 
 
 # haskell
 if not test -d $HOME/.ghcup
+    set -x BOOTSTRAP_HASKELL_NONINTERACTIVE 1
+    set -x BOOTSTRAP_HASKELL_INSTALL_HLS 1
+    set -x BOOTSTRAP_HASKELL_INSTALL_STACK 1
     curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 end
-set -Ux fish_user_paths ~/.ghcup/bin $fish_user_paths
-set -Ux fish_user_paths ~/.cabal/bin $fish_user_paths
+set -U fish_user_paths ~/.ghcup/bin $fish_user_paths
+set -U fish_user_paths ~/.cabal/bin $fish_user_paths
 ghcup upgrade
 
 cd $DOTPATH
