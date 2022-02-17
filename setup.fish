@@ -2,6 +2,8 @@
 
 for a in $argv
     switch $a
+        case "--https-repo"
+            set HTTPS_REPO 1
         case "--skip-helix"
             set SKIP_HELIX 1
     end
@@ -18,7 +20,12 @@ end
 set DOTPATH $HOME/.dotfiles
 
 if not test -d $DOTPATH
-    git clone git@github.com:hayashikun/dotfiles.git $DOTPATH
+    if test $HTTPS_REPO
+        set REPO_URL https://github.com/hayashikun/dotfiles.git
+    else
+        set REPO_URL git@github.com:hayashikun/dotfiles.git
+    end
+    git clone $URL $DOTPATH
 end
 
 cd $DOTPATH
