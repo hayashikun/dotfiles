@@ -22,8 +22,8 @@ for file in (cat link_files)
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
-if not test -d $DOTPATH/tmp
-    mkdir $DOTPATH/tmp
+if not test -d $DOTPATH/.cache
+    mkdir $DOTPATH/.cahce
 end
 
 # fisher
@@ -33,8 +33,8 @@ end
 fisher update
 
 # powerline
-cd $DOTPATH/tmp
-if not test -e $DOTPATH/tmp/fonts
+cd $DOTPATH/.cache
+if not test -e $DOTPATH/.cache/font
     git clone https://github.com/powerline/fonts.git --depth=1
 end
 cd fonts
@@ -84,6 +84,17 @@ end
 if not test -d $HOME/.nodenv/plugins/node-build-update-defs
     git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
 end
+
+
+# helix
+cd $DOTPATH/.cache
+if not test -d $DOTPATH/.cache/helix
+    git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
+end
+cd helix
+git pull --recurse-submodules
+cargo install --path helix-term
+set -x HELIX_RUNTIME $DOTPATH/.cache/helix/runtime
 
 
 # haskell
