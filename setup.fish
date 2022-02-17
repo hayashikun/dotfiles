@@ -37,7 +37,7 @@ for file in (cat link_files)
 end
 
 if not test -d $DOTPATH/.cache
-    mkdir $DOTPATH/.cahce
+    mkdir $DOTPATH/.cache
 end
 
 
