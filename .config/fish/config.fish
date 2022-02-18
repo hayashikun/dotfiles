@@ -1,10 +1,18 @@
 # pyenv
-pyenv init --path | source
-pyenv init - | source
+if type -q pyenv
+    pyenv init --path | source
+    pyenv init - | source
+end
 
 # nodenv
-eval (nodenv init - | source)
+if type -q nodenv
+    eval (nodenv init - | source)
+end
 
-alias ls='exa'
-alias diff='delta'
-alias cat='bat'
+
+for al in "ls exa" "diff delta" "cat bat"
+    set p (string split ' ' $al)
+    if type -q $p[1]
+        alias $p[1]=$p[2]
+    end
+end
