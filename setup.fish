@@ -76,7 +76,7 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 # rustup
 if not type -q rustup
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 end
 
 set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
