@@ -5,3 +5,5 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[lsp]
+display-messages = true
