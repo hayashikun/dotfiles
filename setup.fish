@@ -85,7 +85,7 @@ if not type -q rustup
 end
 
 set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
-rustup install stable
+rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
 rustup update
 cargo install bat exa
 
