@@ -18,6 +18,7 @@ end
 
 
 set DOTPATH $HOME/.dotfiles
+set CACHE_PATH $DOTPATH/.cache
 
 if not test -d $DOTPATH
     if test $HTTPS_REPO
@@ -43,8 +44,8 @@ end
 set -U fish_user_paths $HOME/.local/bin $fish_user_paths
 
 
-if not test -d $DOTPATH/.cache
-    mkdir $DOTPATH/.cache
+if not test -d $CACHE_PATH
+    mkdir $CACHE_PATH
 end
 
 
@@ -56,8 +57,8 @@ fisher update
 
 
 # powerline
-cd $DOTPATH/.cache
-if not test -e $DOTPATH/.cache/font
+cd $CACHE_PATH
+if not test -e $CACHE_PATH/font
     git clone https://github.com/powerline/fonts.git --depth=1
 end
 cd fonts
@@ -111,14 +112,14 @@ end
 
 # helix
 if not test $SKIP_HELIX
-    cd $DOTPATH/.cache
-    if not test -d $DOTPATH/.cache/helix
+    cd $CACHE_PATH
+    if not test -d $CACHE_PATH/helix
         git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
     end
     cd helix
     git pull --recurse-submodules
     cargo install --path helix-term
-    set -Ux HELIX_RUNTIME $DOTPATH/.cache/helix/runtime
+    set -Ux HELIX_RUNTIME $CACHE_PATH/helix/runtime
     cd $DOTPATH
 end
 
