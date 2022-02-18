@@ -17,24 +17,24 @@ for cmd in "git"
 end
 
 
-set DOTPATH $HOME/.dotfiles
-set CACHE_PATH $DOTPATH/.cache
+set DOT_PATH $HOME/.dotfiles
+set CACHE_PATH $DOT_PATH/.cache
 
-if not test -d $DOTPATH
+if not test -d $DOT_PATH
     if test $HTTPS_REPO
         set REPO_URL "https://github.com/hayashikun/dotfiles.git"
     else
         set REPO_URL "git@github.com:hayashikun/dotfiles.git"
     end
-    git clone $REPO_URL $DOTPATH
+    git clone $REPO_URL $DOT_PATH
 end
 
-cd $DOTPATH
+cd $DOT_PATH
 
 set -e fish_user_paths[0..-1]
 
 for file in (cat link_files)
-  ln -snfv $DOTPATH/$file $HOME/$file
+  ln -snfv $DOT_PATH/$file $HOME/$file
 end
 
 
@@ -121,7 +121,7 @@ if not test $SKIP_HELIX
     git pull --recurse-submodules
     cargo install --path helix-term
     set -Ux HELIX_RUNTIME $CACHE_PATH/helix/runtime
-    cd $DOTPATH
+    cd $DOT_PATH
 end
 
 
@@ -136,6 +136,6 @@ set -U fish_user_paths ~/.ghcup/bin $fish_user_paths
 set -U fish_user_paths ~/.cabal/bin $fish_user_paths
 ghcup upgrade
 
-cd $DOTPATH
+cd $DOT_PATH
 
 exec fish
