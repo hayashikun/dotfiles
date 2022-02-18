@@ -37,12 +37,6 @@ for file in (cat link_files)
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
-if not test -e $HOME/.local/bin
-    mkdir $HOME/.local/bin
-end
-
-set -U fish_user_paths $HOME/.local/bin $fish_user_paths
-
 
 if not test -d $CACHE_PATH
     mkdir $CACHE_PATH
@@ -90,7 +84,14 @@ rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
 rustup update
 cargo install bat exa
 
-curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+
+cd $CACHE_PATH
+if not test -d $CACHE_PATH/rust-analyzer
+    git clone https://github.com/rust-analyzer/rust-analyzer.git
+end
+cd rust-analyzer
+git pull
+cargo xtask install --server
 
 
 # nodenv
