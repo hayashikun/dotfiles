@@ -36,6 +36,13 @@ for file in (cat link_files)
   ln -snfv $DOTPATH/$file $HOME/$file
 end
 
+if not test -e $HOME/.local/bin
+    mkdir $HOME/.local/bin
+end
+
+set -U fish_user_paths $HOME/.local/bin $fish_user_paths
+
+
 if not test -d $DOTPATH/.cache
     mkdir $DOTPATH/.cache
 end
@@ -81,6 +88,8 @@ set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
 rustup install stable
 rustup update
 cargo install bat exa
+
+curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
 
 
 # nodenv
