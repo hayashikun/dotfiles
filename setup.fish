@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
+set NODE_VERSION "16.13.0"
+set PYTHON_VERSION "3.9.7"
+
+
 for a in $argv
     switch $a
         case "--https-repo"
@@ -70,8 +74,11 @@ end
 if not test -d $HOME/.pyenv
     git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
 end
+
 set -x PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+
+pyenv install $PYTHON_VERSION -s
 
 
 # rustup
@@ -97,8 +104,11 @@ cargo xtask install --server
 # nodenv
 if not test -d $HOME/.nodenv
     git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
-    cd $HOME/.nodenv && src/configure && make -C src
 end
+
+cd $HOME/.nodenv
+git pull
+src/configure && make -C src
 
 set -U fish_user_paths $HOME/.nodenv/bin $fish_user_paths
 
@@ -109,6 +119,9 @@ end
 if not test -d $HOME/.nodenv/plugins/node-build-update-defs
     git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
 end
+
+nodenv install $NODE_VERSION -s
+nodenv global $NODE_VERSION
 
 
 # helix
