@@ -24,6 +24,7 @@ end
 set DOT_PATH $HOME/.dotfiles
 set CACHE_PATH $DOT_PATH/.cache
 
+
 if not test -d $DOT_PATH
     if test $HTTPS_REPO
         set REPO_URL "https://github.com/hayashikun/dotfiles.git"
@@ -40,7 +41,6 @@ set -e fish_user_paths[0..-1]
 for file in (cat link_files)
   ln -snfv $DOT_PATH/$file $HOME/$file
 end
-
 
 if not test -d $CACHE_PATH
     mkdir $CACHE_PATH
@@ -70,7 +70,8 @@ if not test -e $HOME/.vim/autoload/plug.vim
 end
 
 
-# pyenv
+# python
+cd $DOT_PATH
 if not test -d $HOME/.pyenv
     git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
 end
@@ -79,9 +80,10 @@ set -x PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 pyenv install $PYTHON_VERSION -s
+pip install -U -r pip-packages
 
 
-# rustup
+# rust
 if not type -q rustup
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 end
@@ -89,8 +91,10 @@ end
 set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
 rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
 rustup update
-cargo install bat exa
 
+for p in (cat cargo-packages)
+    cargo install $p
+end
 
 cd $CACHE_PATH
 if not test -d $CACHE_PATH/rust-analyzer
@@ -101,11 +105,10 @@ git pull
 cargo xtask install --server
 
 
-# nodenv
+# node
 if not test -d $HOME/.nodenv
     git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
 end
-
 cd $HOME/.nodenv
 git pull
 src/configure && make -C src
@@ -115,13 +118,36 @@ set -U fish_user_paths $HOME/.nodenv/bin $fish_user_paths
 if not test -d $HOME/.nodenv/plugins/node-build
     git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
 end
+cd $HOME/.nodenv/plugins/node-build
+git pull
 
 if not test -d $HOME/.nodenv/plugins/node-build-update-defs
     git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
 end
+cd $HOME/.nodenv/plugins/node-build-update-defs
+git pull
 
 nodenv install $NODE_VERSION -s
 nodenv global $NODE_VERSION
+
+cd $DOT_PATH
+for p in (cat npm-packages)
+    if test -n $p
+        npm install -g $p
+    end
+end
+
+
+# haskell
+if not test -d $HOME/.ghcup
+    set -x BOOTSTRAP_HASKELL_NONINTERACTIVE 1
+    set -x BOOTSTRAP_HASKELL_INSTALL_HLS 1
+    set -x BOOTSTRAP_HASKELL_INSTALL_STACK 1
+    curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+end
+set -U fish_user_paths ~/.ghcup/bin $fish_user_paths
+set -U fish_user_paths ~/.cabal/bin $fish_user_paths
+ghcup upgrade
 
 
 # helix
@@ -137,18 +163,3 @@ if not test $SKIP_HELIX
     cd $DOT_PATH
 end
 
-
-# haskell
-if not test -d $HOME/.ghcup
-    set -x BOOTSTRAP_HASKELL_NONINTERACTIVE 1
-    set -x BOOTSTRAP_HASKELL_INSTALL_HLS 1
-    set -x BOOTSTRAP_HASKELL_INSTALL_STACK 1
-    curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-end
-set -U fish_user_paths ~/.ghcup/bin $fish_user_paths
-set -U fish_user_paths ~/.cabal/bin $fish_user_paths
-ghcup upgrade
-
-cd $DOT_PATH
-
-exec fish
