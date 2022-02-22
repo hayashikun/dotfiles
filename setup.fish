@@ -18,7 +18,7 @@ function apt-install
         echo "apt is required"
         exit 1
     end
-    sudo apt update
+    sudo apt update & sudo apt upgrade -y
     sudo apt install -y (cat apt-packages)
 end
 
