@@ -7,3 +7,6 @@ select = "underline"
 
 [lsp]
 display-messages = true
+
+[editor.file-picker]
+hidden = false
