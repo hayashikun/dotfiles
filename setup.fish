@@ -80,6 +80,7 @@ set -x PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
 pyenv install $PYTHON_VERSION -s
+pyenv global $PYTHON_VERSION
 pip install -U -r pip-packages
 
 
