@@ -1,4 +1,14 @@
+pip
 numpy
 scipy
+pandas
+tqdm
+matplotlib
+numba
 python-lsp-server[all]
-
+jupyterlab_code_formatter
+autopep8
+isort
+jupyterlab-git
+jupyterlab-lsp
+chardet

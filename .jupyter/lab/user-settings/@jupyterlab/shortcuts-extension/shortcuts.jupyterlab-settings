@@ -1,0 +1,18 @@
+{
+    "shortcuts": [
+        {
+            "command": "runmenu:restart-and-run-all",
+            "keys": [
+                "Ctrl Shift Enter"
+            ],
+            "selector": "[data-jp-code-runner]"
+        },
+        {
+            "command": "jupyterlab_code_formatter:autopep8",
+            "keys": [
+                "Ctrl Alt L"
+            ],
+            "selector": ".jp-Notebook.jp-mod-editMode"
+        }
+    ]
+}

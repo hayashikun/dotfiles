@@ -39,7 +39,15 @@ cd $DOT_PATH
 set -e fish_user_paths[0..-1]
 
 for file in (cat link_files)
-  ln -snfv $DOT_PATH/$file $HOME/$file
+    if not test $DOT_PATH/$file
+        continue
+    end
+    set PARENT_PATH (dirname $file)
+    echo $PARENT_PATH
+    if not test -d $HOME/$PARENT_PATH
+        mkdir -p $HOME/$PARENT_PATH
+    end
+    ln -snfv $DOT_PATH/$file $HOME/$file
 end
 
 if not test -d $CACHE_PATH
