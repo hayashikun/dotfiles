@@ -2,6 +2,8 @@
 
 set NODE_VERSION "16.13.0"
 set PYTHON_VERSION "3.9.7"
+set GO_VERSION "1.17.7"
+
 
 function brew-install
     if not type -q brew
@@ -96,6 +98,17 @@ function node-install
             npm install -g $p
         end
     end
+end
+
+
+function go-install
+    set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" "amd64.tar.gz")
+    cd $CACHE_PATH
+    if not test -f $ARC
+        curl "https://dl.google.com/go/$ARC" -O
+        sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
+    end
+    set -U fish_user_paths "/usr/local/go/bin" $fish_user_paths
 end
 
 
@@ -205,6 +218,7 @@ rust-install
 
 haskell-install
 
+go-install
 
 # helix
 if not test $SKIP_HELIX
