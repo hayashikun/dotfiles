@@ -115,6 +115,12 @@ function go-install
         sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
     end
     set -U fish_user_paths "/usr/local/go/bin" $fish_user_paths
+    set -U fish_user_paths "$HOME/go/bin" $fish_user_paths
+
+    cd $DOT_PATH
+    for p in (cat go-packages)
+        go install $p
+    end
 end
 
 
