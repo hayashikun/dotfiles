@@ -13,7 +13,7 @@ for a in $argv
     end
 end
 
-for cmd in "git"
+for cmd in "git" "curl"
     if not type -q $cmd
         echo $cmd "is required."
         exit 1
@@ -43,7 +43,6 @@ for file in (cat link_files)
         continue
     end
     set PARENT_PATH (dirname $file)
-    echo $PARENT_PATH
     if not test -d $HOME/$PARENT_PATH
         mkdir -p $HOME/$PARENT_PATH
     end
