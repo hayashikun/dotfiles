@@ -19,7 +19,7 @@ function apt-install
         exit 1
     end
     sudo apt update
-    sudo install (cat apt-packages)
+    sudo apt install -y (cat apt-packages)
 end
 
 
@@ -33,13 +33,15 @@ function python-install
 
     set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
+    cd $DOT_PATH
     pyenv install $PYTHON_VERSION -s
     pyenv global $PYTHON_VERSION
-    pip install -U -r pip-packages
+    pip install -U -y -r pip-packages
 end
 
 
 function rust-install
+    cd $DOT_PATH
     if not type -q rustup
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
     end
@@ -57,6 +59,7 @@ function rust-install
         git clone https://github.com/rust-analyzer/rust-analyzer.git
     end
     cd rust-analyzer
+    git checkout release
     git pull
     cargo xtask install --server
 end
@@ -115,6 +118,8 @@ for a in $argv
             set HTTPS_REPO 1
         case "--skip-helix"
             set SKIP_HELIX 1
+        case "--skip-os-pkg"
+            set SKIP_OS_PKG 1
     end
 end
 
@@ -159,6 +164,16 @@ end
 # make chache dir
 if not test -d $CACHE_PATH
     mkdir $CACHE_PATH
+end
+
+
+if not test $SKIP_OS_PKG
+    switch (uname -s)
+        case "Darwin"
+            brew-install
+        case "Linux"
+            apt-install
+    end
 end
 
 
