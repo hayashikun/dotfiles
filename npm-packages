@@ -1,4 +1,5 @@
 yarn
 typescript-language-server
 dockerfile-language-server-nodejs
+bash-language-server
 
