@@ -4,6 +4,10 @@ set NODE_VERSION "16.13.0"
 set PYTHON_VERSION "3.9.7"
 set GO_VERSION "1.17.7"
 
+set HTTPS_REPO false  # --https-repo
+set SKIP_HELIX false  # --skip-helix
+set SKIP_OS_PKG false  # --skip-os-pkg
+
 
 function brew-install
     if not type -q brew
@@ -36,9 +40,11 @@ function python-install
     set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
     cd $DOT_PATH
-    pyenv install $PYTHON_VERSION -s
-    pyenv global $PYTHON_VERSION
-    pip install -U -y -r pip-packages
+    if not test (pyenv global) = $PYTHON_VERSION
+        pyenv install $PYTHON_VERSION -s
+        pyenv global $PYTHON_VERSION
+    end
+    pip install -U -r pip-packages
 end
 
 
@@ -125,14 +131,27 @@ function haskell-install
 end
 
 
+function helix-install
+    cd $CACHE_PATH
+    if not test -d $CACHE_PATH/helix
+        git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
+    end
+    cd helix
+    git pull --recurse-submodules
+    cargo install --path helix-term
+    set -Ux HELIX_RUNTIME $CACHE_PATH/helix/runtime
+    cd $DOT_PATH
+end
+
+
 for a in $argv
     switch $a
         case "--https-repo"
-            set HTTPS_REPO 1
+            set HTTPS_REPO true
         case "--skip-helix"
-            set SKIP_HELIX 1
+            set SKIP_HELIX true
         case "--skip-os-pkg"
-            set SKIP_OS_PKG 1
+            set SKIP_OS_PKG true
     end
 end
 
@@ -147,9 +166,8 @@ end
 set DOT_PATH $HOME/.dotfiles
 set CACHE_PATH $DOT_PATH/.cache
 
-
 if not test -d $DOT_PATH
-    if test $HTTPS_REPO
+    if $HTTPS_REPO
         set REPO_URL "https://github.com/hayashikun/dotfiles.git"
     else
         set REPO_URL "git@github.com:hayashikun/dotfiles.git"
@@ -180,7 +198,7 @@ if not test -d $CACHE_PATH
 end
 
 
-if not test $SKIP_OS_PKG
+if not $SKIP_OS_PKG
     switch (uname -s)
         case "Darwin"
             brew-install
@@ -221,14 +239,6 @@ haskell-install
 go-install
 
 # helix
-if not test $SKIP_HELIX
-    cd $CACHE_PATH
-    if not test -d $CACHE_PATH/helix
-        git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
-    end
-    cd helix
-    git pull --recurse-submodules
-    cargo install --path helix-term
-    set -Ux HELIX_RUNTIME $CACHE_PATH/helix/runtime
-    cd $DOT_PATH
+if not $SKIP_HELIX
+    helix-install
 end
