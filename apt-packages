@@ -9,3 +9,5 @@ libreadline-dev
 libsqlite3-dev
 jq
 pwgen
+gdb
+lldb
