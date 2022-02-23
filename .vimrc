@@ -3,20 +3,18 @@ scriptencoding utf-8
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'google/vim-searchindex'
-Plug 'tpope/vim-endwise'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+
+Plug 'kana/vim-smartinput'
 Plug 'airblade/vim-gitgutter'
 Plug 'cocopon/iceberg.vim'
 
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'rafamadriz/friendly-snippets'
 
 call plug#end()
 
@@ -51,34 +49,20 @@ set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
 set fileformat=unix
 
-inoremap <C-j>  <down>
-inoremap <C-k>  <up>
-inoremap <C-h>  <left>
-inoremap <C-l>  <right>
-inoremap {  {}<LEFT>
-inoremap [  []<LEFT>
-inoremap (  ()<LEFT>
-inoremap "  ""<LEFT>
-inoremap '  ''<LEFT>
+runtime! config/*.vim
 
 colorscheme desert
 highlight LineNr ctermfg=darkyellow
 
-let g:lsp_diagnostics_echo_cursor = 1
-autocmd BufWritePre <buffer> LspDocumentFormatSync
-nnoremap <C-m> :LspDocumentFormat<CR>
-
-inoremap <expr><Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let mapleader = "\<Space>"
 
 
-" Expand or jump
-imap <expr><C-p>  vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-p>'
-smap <expr><C-p>  vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-p>'
+" termdebug
+packadd termdebug
+let g:termdebug_wide = 160
 
-" Jump forward or backward
-imap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-smap <expr><Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-imap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-smap <expr><S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+
+" Fern
+let g:fern#default_hidden=1
+nnoremap <silent> <Leader>f :<C-u>Fern .<CR>
 
