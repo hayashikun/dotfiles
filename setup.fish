@@ -56,6 +56,7 @@ function rust-install
     end
 
     fish_add_path $HOME/.cargo/bin
+    rustup install stable nightly
     rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
     rustup update
 
