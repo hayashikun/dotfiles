@@ -37,7 +37,7 @@ function python-install
     cd $PYENV_ROOT
     git pull
 
-    set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+    set -U fish_add_path $PYENV_ROOT/bin
 
     cd $DOT_PATH
     if not test (pyenv global) = $PYTHON_VERSION
@@ -54,7 +54,7 @@ function rust-install
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
     end
 
-    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+    set -U fish_add_path $HOME/.cargo/bin
     rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
     rustup update
 
@@ -81,7 +81,7 @@ function node-install
     git pull
     src/configure && make -C src
 
-    set -U fish_user_paths $HOME/.nodenv/bin $fish_user_paths
+    set -U fish_add_path $HOME/.nodenv/bin
 
     if not test -d $HOME/.nodenv/plugins/node-build
         git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
@@ -114,8 +114,8 @@ function go-install
         curl "https://dl.google.com/go/$ARC" -O
         sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
     end
-    set -U fish_user_paths "/usr/local/go/bin" $fish_user_paths
-    set -U fish_user_paths "$HOME/go/bin" $fish_user_paths
+    set -U fish_add_path "/usr/local/go/bin"
+    set -U fish_add_path "$HOME/go/bin"
 
     cd $DOT_PATH
     for p in (cat go-packages)
@@ -131,8 +131,8 @@ function haskell-install
         set -x BOOTSTRAP_HASKELL_INSTALL_STACK 1
         curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
     end
-    set -U fish_user_paths ~/.ghcup/bin $fish_user_paths
-    set -U fish_user_paths ~/.cabal/bin $fish_user_paths
+    set -U fish_add_path ~/.ghcup/bin
+    set -U fish_add_path ~/.cabal/bin
     ghcup upgrade
 end
 
