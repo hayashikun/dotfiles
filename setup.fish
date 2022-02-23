@@ -38,6 +38,7 @@ function python-install
     git pull
 
     fish_add_path $PYENV_ROOT/bin
+    source $HOME/.config/fish/config.fish
 
     cd $DOT_PATH
     if not test (pyenv global) = $PYTHON_VERSION
@@ -82,6 +83,7 @@ function node-install
     src/configure && make -C src
 
     fish_add_path $HOME/.nodenv/bin
+    source $HOME/.config/fish/config.fish
 
     if not test -d $HOME/.nodenv/plugins/node-build
         git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
@@ -240,6 +242,8 @@ python-install
 
 rust-install
 
+node-install
+
 haskell-install
 
 go-install
@@ -248,3 +252,5 @@ go-install
 if not $SKIP_HELIX
     helix-install
 end
+
+source $HOME/.config/fish/config.fish
