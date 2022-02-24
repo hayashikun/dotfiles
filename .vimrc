@@ -3,6 +3,8 @@ scriptencoding utf-8
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'google/vim-searchindex'
+
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 
@@ -15,6 +17,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 call plug#end()
 
@@ -51,7 +54,6 @@ set fileformat=unix
 
 runtime! config/*.vim
 
-colorscheme desert
 highlight LineNr ctermfg=darkyellow
 
 let mapleader = "\<Space>"
