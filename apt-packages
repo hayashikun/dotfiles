@@ -11,3 +11,4 @@ jq
 pwgen
 gdb
 lldb
+fzf

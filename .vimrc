@@ -17,6 +17,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'cespare/vim-toml', { 'branch': 'main' }
 
 call plug#end()
@@ -67,4 +70,9 @@ let g:termdebug_wide = 160
 " Fern
 let g:fern#default_hidden=1
 nnoremap <silent> <Leader>f :<C-u>Fern .<CR>
+
+" fzf
+nnoremap <silent> <leader>/ :Rg<CR>
+nnoremap <silent> <leader>g :Files<CR>
+
 

@@ -2,3 +2,4 @@ bat
 exa
 git-delta
 cargo-watch
+ripgrep
