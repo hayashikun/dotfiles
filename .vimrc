@@ -21,7 +21,8 @@ Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'cespare/vim-toml', { 'branch': 'main' }
-Plug 'dag/vim-fish'
+Plug 'khaveesh/vim-fish-syntax'
+
 
 call plug#end()
 
