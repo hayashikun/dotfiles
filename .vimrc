@@ -26,6 +26,7 @@ call plug#end()
 
 set clipboard=unnamed,unnamedplus
 set completeopt=menuone
+set nocompatible
 set noswapfile
 set ruler
 set tabstop=4
@@ -59,6 +60,12 @@ runtime! config/*.vim
 
 highlight LineNr ctermfg=darkyellow
 
+if has('vim_starting')
+    let &t_SI .= "\e[6 q"
+    let &t_EI .= "\e[2 q"
+    let &t_SR .= "\e[4 q"
+endif
+
 let mapleader = "\<Space>"
 
 
@@ -70,6 +77,7 @@ let g:termdebug_wide = 160
 " Fern
 let g:fern#default_hidden=1
 nnoremap <silent> <Leader>f :<C-u>Fern .<CR>
+
 
 " fzf
 nnoremap <silent> <leader>/ :Rg<CR>
