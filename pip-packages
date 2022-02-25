@@ -12,3 +12,5 @@ isort
 jupyterlab-git
 jupyterlab-lsp
 chardet
+asciinema
+

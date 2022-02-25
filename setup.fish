@@ -206,7 +206,6 @@ if not test -d $CACHE_PATH
     mkdir $CACHE_PATH
 end
 
-
 if not $SKIP_OS_PKG
     switch (uname -s)
         case "Darwin"
@@ -240,6 +239,10 @@ if not test -e $HOME/.vim/autoload/plug.vim
 end
 
 python-install
+
+if not test -e $HOME/.config/asciinema/install-id
+    echo "asciinema auth is needed!"
+end
 
 rust-install
 
