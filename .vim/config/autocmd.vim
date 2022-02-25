@@ -1,6 +1,8 @@
 filetype plugin on
 filetype indent on
 
+autocmd BufNewFile,BufRead *.fish setfiletype fish
+
 autocmd FileType c setlocal sw=4 sts=4 ts=4 et
 autocmd FileType cpp setlocal sw=4 sts=4 ts=4 et
 autocmd FileType rust setlocal sw=4 sts=4 ts=4 et
