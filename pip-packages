@@ -13,4 +13,5 @@ jupyterlab-git
 jupyterlab-lsp
 chardet
 asciinema
+joblib
 
