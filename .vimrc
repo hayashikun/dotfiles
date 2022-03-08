@@ -8,7 +8,7 @@ Plug 'google/vim-searchindex'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 
-Plug 'kana/vim-smartinput'
+" Plug 'kana/vim-smartinput'
 Plug 'airblade/vim-gitgutter'
 Plug 'cocopon/iceberg.vim'
 
@@ -17,7 +17,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'cespare/vim-toml', { 'branch': 'main' }
