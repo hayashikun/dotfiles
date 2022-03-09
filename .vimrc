@@ -8,7 +8,8 @@ Plug 'google/vim-searchindex'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 
-" Plug 'kana/vim-smartinput'
+Plug 'kana/vim-smartinput'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'cocopon/iceberg.vim'
 
@@ -69,6 +70,16 @@ if has('vim_starting')
 endif
 
 let mapleader = "\<Space>"
+
+for [c1, c2] in [['(', ')'], ['{', '}'], ['<', '>'], ['"', '"'], ["'", "'"]]
+    call smartinput#define_rule({'at': c1.c2.'\%#', 'char': '<BS>', 'input': '<BS>'})
+endfor
+
+call smartinput#define_rule({
+\   'at': '\s\+\%#',
+\   'char': '<CR>',
+\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+\   })
 
 
 " termdebug
