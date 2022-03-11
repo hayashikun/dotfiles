@@ -40,6 +40,14 @@ if executable('rust-analyzer')
         \ })
 endif
 
+if executable('svls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'svls',
+        \ 'cmd': {server_info->['svls']},
+        \ 'whitelist': ['systemverilog'],
+        \ })
+endif
+
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete

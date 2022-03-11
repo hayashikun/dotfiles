@@ -7,3 +7,5 @@
 .config/pycodestyle
 .config/helix/config.toml
 .jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings
+.svls.toml
+
