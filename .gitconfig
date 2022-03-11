@@ -1,6 +1,5 @@
 [core]
 	pager = delta
-	editor = hx
 
 [user]
 	name = Ryosuke Hayashi
