@@ -32,6 +32,7 @@ set completeopt=menuone
 set nocompatible
 set noswapfile
 set ruler
+set nowrap
 set tabstop=4
 set autoindent
 set smartindent
