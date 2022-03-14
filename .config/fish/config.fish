@@ -16,3 +16,5 @@ for al in "ls exa" "diff delta" "cat bat"
         alias $p[1]=$p[2]
     end
 end
+
+alias la="ls -lah"
