@@ -14,3 +14,5 @@ autocmd FileType html setlocal sw=4 sts=4 ts=4 et
 autocmd FileType css setlocal sw=4 sts=4 ts=4 et
 autocmd FileType scss setlocal sw=4 sts=4 ts=4 et
 autocmd FileType sass setlocal sw=4 sts=4 ts=4 et
+autocmd FileType verilog setlocal sw=4 sts=4 ts=4 noet
+autocmd FileType systemverilog setlocal sw=4 sts=4 ts=4 noet
