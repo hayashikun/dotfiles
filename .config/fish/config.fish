@@ -12,7 +12,7 @@ end
 
 for al in "ls exa" "diff delta" "cat bat"
     set p (string split ' ' $al)
-    if type -q $p[1]
+    if type -q $p[2]
         alias $p[1]=$p[2]
     end
 end
