@@ -53,6 +53,7 @@ function rust-install
     cd $DOT_PATH
     if not type -q rustup
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+        source $HOME/.cargo/env
     end
 
     fish_add_path $HOME/.cargo/bin
