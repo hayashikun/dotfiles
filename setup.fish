@@ -5,7 +5,6 @@ set PYTHON_VERSION "3.9.7"
 set GO_VERSION "1.17.7"
 
 set HTTPS_REPO false  # --https-repo
-set SKIP_HELIX false  # --skip-helix
 set SKIP_OS_PKG false  # --skip-os-pkg
 
 
@@ -141,25 +140,10 @@ function haskell-install
 end
 
 
-function helix-install
-    cd $CACHE_PATH
-    if not test -d $CACHE_PATH/helix
-        git clone --recurse-submodules --shallow-submodules -j8 https://github.com/helix-editor/helix
-    end
-    cd helix
-    git pull --recurse-submodules
-    cargo install --path helix-term
-    set -Ux HELIX_RUNTIME $CACHE_PATH/helix/runtime
-    cd $DOT_PATH
-end
-
-
 for a in $argv
     switch $a
         case "--https-repo"
             set HTTPS_REPO true
-        case "--skip-helix"
-            set SKIP_HELIX true
         case "--skip-os-pkg"
             set SKIP_OS_PKG true
     end
@@ -219,7 +203,7 @@ end
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    curl -sL https://git.io/fisher | source
 end
 fisher update
 
@@ -252,10 +236,5 @@ node-install
 haskell-install
 
 go-install
-
-# helix
-if not $SKIP_HELIX
-    helix-install
-end
 
 source $HOME/.config/fish/config.fish
