@@ -58,9 +58,13 @@ if not test -e $HOME/.vim/autoload/plug.vim
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 end
 
+set TARGETS python rust node go
+if test -f $DOT_PATH/.target
+    set TARGETS (cat $DOT_PATH/.target)
+end
 
-for target in python rust node go flutter
-    cd $DOT_PATH && source setup-$target.fish
+for t in $TARGETS
+    cd $DOT_PATH && source setup-$t.fish
 end
 
 source-config
