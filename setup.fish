@@ -123,7 +123,13 @@ end
 
 
 function go-install
-    set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" "amd64.tar.gz")
+    switch (uname -m)
+        case "arm64"
+            set ARCH "arm64"
+        case "*"
+            set ARCH "amd64"
+    end
+    set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" $ARCH ".tar.gz")
     cd $CACHE_PATH
     if not test -f $ARC
         curl "https://dl.google.com/go/$ARC" -O
