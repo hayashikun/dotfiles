@@ -1,30 +1,6 @@
 #!/usr/bin/env fish
 
-set SKIP_OS_PKG false  # --skip-os-pkg
-
 cd (dirname (status -f)) && source init.fish
-
-function brew-install
-    if not type -q brew
-        echo "brew is required"; exit 1
-    end
-    brew upgrade && brew install (cat brew-packages)
-end
-
-
-function apt-install
-    if not type -q apt
-        echo "apt is required"; exit 1
-    end
-    sudo apt update && sudo apt upgrade -y && sudo apt install -y (cat apt-packages)
-end
-
-for a in $argv
-    switch $a
-        case "--skip-os-pkg"
-            set SKIP_OS_PKG true
-    end
-end
 
 
 for cmd in "git" "curl"
@@ -59,15 +35,8 @@ if not test -d $CACHE_PATH
 end
 
 
-if not $SKIP_OS_PKG
-    switch (uname -s)
-        case "Darwin"
-            brew-install
-        case "Linux"
-            apt-install
-    end
-end
-
+brew-install jq pwgen fzf gdb tree gcc cmake
+apt-install xclip build-essential jq pwgen fzf gdb lldb tree vim
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish

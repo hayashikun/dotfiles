@@ -5,15 +5,20 @@ if not test $INIT_LOADED
     set CACHE_PATH $DOT_PATH/.cache
 
     function link-file
-        for file in $argv
-            if not test $DOT_PATH/$file
+        for f in $argv
+            if not test $DOT_PATH/$f
                 continue
             end
-            if not test -d $HOME/(dirname $file)
-                mkdir -p $HOME/(dirname $file)
+            if not test -d $HOME/(dirname $f)
+                mkdir -p $HOME/(dirname $f)
             end
-            ln -snfv $DOT_PATH/$file $HOME/$file
+            ln -snfv $DOT_PATH/$f $HOME/$f
         end
+    end
+
+
+    function source-config
+        source $HOME/.config/fish/config.fish
     end
 
 
@@ -22,13 +27,31 @@ if not test $INIT_LOADED
     end
 
 
-    function is-arm-mac
-        return (test (uname -sm) = "Darwin arm64")
+    if type -q brew
+        brew upgrade
     end
 
-    function source-config
-        source $HOME/.config/fish/config.fish
+    function brew-install
+        if type -q brew
+            for p in $argv
+                brew install $p
+            end
+        end
     end
+
+    
+    if type -q apt
+        sudo apt update && sudo apt upgrade
+    end
+
+    function apt-install
+        if type -q apt
+            for p in $argv
+                sudo apt install $p
+            end
+        end
+    end
+
 
     set INIT_LOADED 1
 end
