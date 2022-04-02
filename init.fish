@@ -37,22 +37,18 @@ if not test $INIT_LOADED
 
     function brew-install
         if is-mac && type -q brew
-            for p in $argv
-                brew install $p
-            end
+            brew install $argv
         end
     end
 
     
     if is-linux && type -q apt
-        sudo apt update && sudo apt upgrade
+        sudo apt update && sudo apt upgrade -y
     end
 
     function apt-install
         if is-linux && type -q apt
-            for p in $argv
-                sudo apt install $p
-            end
+            sudo apt install -y $argv
         end
     end
 
