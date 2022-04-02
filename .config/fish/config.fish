@@ -1,3 +1,9 @@
+# for M1 mac
+if test (uname -sm) = "Darwin arm64"
+    eval (/opt/homebrew/bin/brew shellenv)
+end
+
+
 # pyenv
 if type -q pyenv
     pyenv init --path | source

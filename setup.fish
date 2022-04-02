@@ -1,11 +1,14 @@
 #!/usr/bin/env fish
 
 set NODE_VERSION "16.13.0"
-set PYTHON_VERSION "3.9.7"
+set PYTHON_VERSION "3.10.4"
 set GO_VERSION "1.17.7"
 
 set HTTPS_REPO false  # --https-repo
 set SKIP_OS_PKG false  # --skip-os-pkg
+
+
+source common.fish
 
 
 function brew-install
@@ -44,7 +47,17 @@ function python-install
         pyenv install $PYTHON_VERSION -s
         pyenv global $PYTHON_VERSION
     end
-    pip install -U -r pip-packages
+
+    function pip-install
+        pip install -U -r pip-packages
+    end
+
+    if is-mac
+        # for llvmlite
+        LLVM_CONFIG=(brew --prefix llvm@11)/bin/llvm-config pip-install
+    else
+        pip-install
+    end
 end
 
 
@@ -52,7 +65,6 @@ function rust-install
     cd $DOT_PATH
     if not type -q rustup
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-        source $HOME/.cargo/env
     end
 
     fish_add_path $HOME/.cargo/bin
@@ -157,9 +169,6 @@ for cmd in "git" "curl"
 end
 
 
-set DOT_PATH $HOME/.dotfiles
-set CACHE_PATH $DOT_PATH/.cache
-
 if not test -d $DOT_PATH
     if $HTTPS_REPO
         set REPO_URL "https://github.com/hayashikun/dotfiles.git"
@@ -184,6 +193,8 @@ for file in (cat link_files)
     end
     ln -snfv $DOT_PATH/$file $HOME/$file
 end
+
+source-config
 
 
 # make chache dir
@@ -237,4 +248,5 @@ haskell-install
 
 go-install
 
-source $HOME/.config/fish/config.fish
+source-config
+

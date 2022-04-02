@@ -4,4 +4,9 @@ fzf
 jq
 gdb
 tree
-
+zlib
+xz
+openssl
+gcc
+cmake
+llvm@11

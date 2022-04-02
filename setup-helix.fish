@@ -1,8 +1,7 @@
 #!/usr/bin/env fish
 
+source common.fish
 
-set DOT_PATH $HOME/.dotfiles
-set CACHE_PATH $DOT_PATH/.cache
 
 cd $CACHE_PATH
 if not test -d $CACHE_PATH/helix

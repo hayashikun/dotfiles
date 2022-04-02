@@ -1,5 +1,7 @@
 #!/usr/bin/env fish
 
+source common.fish
+
 set PICO_HOME $HOME/development/pico 
 
 brew install cmake
