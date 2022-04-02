@@ -18,16 +18,9 @@ end
 set -e fish_user_paths[0..-1]
 
 
-link-file \
-    .vimrc \
-    .vim/config/autocmd.vim \
-    .vim/config/lsp.vim \
-    .gitconfig \
-    .config/fish/config.fish \
-    .config/fish/fish_plugins \
+link-file .gitconfig .config/fish/config.fish .config/fish/fish_plugins
 
 source-config
-
 
 # make chache dir
 if not test -d $CACHE_PATH
@@ -35,8 +28,8 @@ if not test -d $CACHE_PATH
 end
 
 
-brew-install jq pwgen fzf gdb tree gcc cmake
-apt-install xclip build-essential jq pwgen fzf gdb lldb tree vim
+brew-install jq pwgen gdb tree gcc cmake
+apt-install xclip build-essential jq pwgen gdb lldb tree
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
@@ -53,12 +46,8 @@ end
 cd fonts && git pull && ./install.sh
 
 
-# vim-plug
-if not test -e $HOME/.vim/autoload/plug.vim
-  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-end
-
-set TARGETS python rust node go
+# target
+set TARGETS vim python rust node go
 if test -f $DOT_PATH/.target
     set TARGETS (cat $DOT_PATH/.target)
 end
