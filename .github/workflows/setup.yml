@@ -19,4 +19,4 @@ jobs:
           sudo apt update
           sudo apt install fish
       - name: Run setup.fish
-        run: setup.fish
+        run: fish setup.fish
