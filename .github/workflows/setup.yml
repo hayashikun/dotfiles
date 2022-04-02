@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: '$HOME/.dotfiles'
+      - name: Rename
+        run: mv $HOME/dotfiles $HOME/.dotfiles
       - name: Install fish
         run: |
           sudo apt-add-repository ppa:fish-shell/release-3
