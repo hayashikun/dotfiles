@@ -22,4 +22,4 @@ if not test -d $CACHE_PATH/rust-analyzer
 end
 cd rust-analyzer && git checkout release && git pull && cargo xtask install --server
 
-link-file ".svls.toml"
+link-file .svls.toml

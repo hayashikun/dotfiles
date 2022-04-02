@@ -3,7 +3,7 @@
 cd (dirname (status -f)) && source init.fish
 
 
-for cmd in "git" "curl"
+for cmd in git curl
     if not type -q $cmd
         echo $cmd "is required."; exit 1
     end
@@ -11,7 +11,7 @@ end
 
 
 if not test -d $DOT_PATH
-    git clone "git@github.com:hayashikun/dotfiles.git" $DOT_PATH
+    git clone git@github.com:hayashikun/dotfiles.git $DOT_PATH
 end
 
 
@@ -19,12 +19,12 @@ set -e fish_user_paths[0..-1]
 
 
 link-file \
-    ".vimrc" \
-    ".vim/config/autocmd.vim" \
-    ".vim/config/lsp.vim" \
-    ".gitconfig" \
-    ".config/fish/config.fish" \
-    ".config/fish/fish_plugins" \
+    .vimrc \
+    .vim/config/autocmd.vim \
+    .vim/config/lsp.vim \
+    .gitconfig \
+    .config/fish/config.fish \
+    .config/fish/fish_plugins \
 
 source-config
 

@@ -32,8 +32,8 @@ else
 end
 
 link-file \
-    ".config/pycodestyle" \
-    ".jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings"
+    .config/pycodestyle \
+    .jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings
 
 if not test -e $HOME/.config/asciinema/install-id
     echo "asciinema auth is needed!"

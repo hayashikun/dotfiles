@@ -13,11 +13,11 @@ end
 set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" $ARCH ".tar.gz")
 cd $CACHE_PATH
 if not test -f $ARC
-    curl "https://dl.google.com/go/$ARC" -O
+    curl https://dl.google.com/go/$ARC -O
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
 end
-fish_add_path "/usr/local/go/bin"
-fish_add_path "$HOME/go/bin"
+fish_add_path /usr/local/go/bin
+fish_add_path $HOME/go/bin
 
 cd $DOT_PATH
 for p in (cat go-packages)
