@@ -3,6 +3,11 @@ if test (uname -sm) = "Darwin arm64"
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
+if test (uname -s) = "Linux"
+    alias pbcopy="xclip -selection c"
+    alias pbpaste="xclip -selection c -o" 
+end
+
 
 # pyenv
 if type -q pyenv
