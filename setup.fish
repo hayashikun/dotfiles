@@ -216,7 +216,7 @@ end
 if not test -e $HOME/.config/fish/functions/fisher.fish
     curl -sL https://git.io/fisher | source
 end
-fisher update
+fisher install (cat $DOT_PATH/.config/fish/fish_plugins)
 
 
 # powerline
