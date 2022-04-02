@@ -59,7 +59,7 @@ if not test -e $HOME/.vim/autoload/plug.vim
 end
 
 
-for target in python rust node go
+for target in python rust node go flutter
     cd $DOT_PATH && source setup-$target.fish
 end
 
