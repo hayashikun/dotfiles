@@ -17,4 +17,5 @@ for al in "ls exa" "diff delta" "cat bat"
     end
 end
 
+# for exa
 alias la="ls -lah"
