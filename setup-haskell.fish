@@ -1,6 +1,8 @@
 #!/usr/bin/env fish
 
- if not test -d $HOME/.ghcup
+cd (dirname (status -f)) && source init.fish
+
+if not test -d $HOME/.ghcup
     set -x BOOTSTRAP_HASKELL_NONINTERACTIVE 1
     set -x BOOTSTRAP_HASKELL_INSTALL_HLS 1
     set -x BOOTSTRAP_HASKELL_INSTALL_STACK 1

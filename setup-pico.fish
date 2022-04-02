@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-source common.fish
+cd (dirname (status -f)) && source init.fish
 
 set PICO_HOME $HOME/development/pico 
 
@@ -16,14 +16,10 @@ cd $PICO_HOME
 if not test -d $PICO_HOME/pico-sdk
     git clone -b master https://github.com/raspberrypi/pico-sdk.git
 end
-cd pico-sdk
-git pull
-git submodule update --init
-cd ..
+cd pico-sdk && git pull && git submodule update --init && cd ..
 
 if not test -d $PICO_HOME/pico-examples
     git clone -b master https://github.com/raspberrypi/pico-examples.git
 end
-cd pico-examples
-git pull
+cd pico-examples && git pull
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-source common.fish
+cd (dirname (status -f)) && source init.fish
 
 cd $CACHE_PATH
 if not test -d $CACHE_PATH/helix

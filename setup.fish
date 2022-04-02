@@ -1,14 +1,8 @@
 #!/usr/bin/env fish
 
-set NODE_VERSION "16.13.0"
-set PYTHON_VERSION "3.10.4"
-set GO_VERSION "1.17.7"
-
 set SKIP_OS_PKG false  # --skip-os-pkg
 
-
-source common.fish
-
+cd (dirname (status -f)) && source init.fish
 
 function brew-install
     if not type -q brew
@@ -24,114 +18,6 @@ function apt-install
     end
     sudo apt update && sudo apt upgrade -y && sudo apt install -y (cat apt-packages)
 end
-
-
-function python-install
-    set -x PYENV_ROOT $HOME/.pyenv
-    if not test -d $PYENV_ROOT
-        git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
-    end
-    cd $PYENV_ROOT && git pull
-
-    fish_add_path $PYENV_ROOT/bin
-    source-config
-
-    cd $DOT_PATH
-    if not test (pyenv global) = $PYTHON_VERSION
-        pyenv install $PYTHON_VERSION -s && pyenv global $PYTHON_VERSION
-    end
-
-    function pip-install
-        pip install -U -r pip-packages
-    end
-
-    if is-mac  # for llvmlite
-        LLVM_CONFIG=(brew --prefix llvm@11)/bin/llvm-config pip-install
-    else
-        pip-install
-    end
-
-    if not test -e $HOME/.config/asciinema/install-id
-        echo "asciinema auth is needed!"
-    end
-end
-
-
-function rust-install
-    cd $DOT_PATH
-    if not type -q rustup
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-    end
-
-    fish_add_path $HOME/.cargo/bin
-    rustup install stable nightly
-    rustup component add clippy rls rust-analysis rust-src rust-docs rustfmt
-    rustup update
-
-    for p in (cat cargo-packages)
-        cargo install $p
-    end
-
-    cd $CACHE_PATH
-    if not test -d $CACHE_PATH/rust-analyzer
-        git clone https://github.com/rust-analyzer/rust-analyzer.git
-    end
-    cd rust-analyzer && git checkout release && git pull && cargo xtask install --server
-end
-
-
-function node-install
-    if not test -d $HOME/.nodenv
-        git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
-    end
-    cd $HOME/.nodenv && git pull && src/configure && make -C src
-
-    fish_add_path $HOME/.nodenv/bin
-    source-config
-
-    if not test -d $HOME/.nodenv/plugins/node-build
-        git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
-    end
-    cd $HOME/.nodenv/plugins/node-build && git pull
-
-    if not test -d $HOME/.nodenv/plugins/node-build-update-defs
-        git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
-    end
-    cd $HOME/.nodenv/plugins/node-build-update-defs && git pull
-
-    nodenv install $NODE_VERSION -s && nodenv global $NODE_VERSION
-
-    cd $DOT_PATH
-    for p in (cat npm-packages)
-        if test -n $p
-            npm install -g $p
-        end
-    end
-end
-
-
-function go-install
-    switch (uname -m)
-        case "arm64"
-            set ARCH "arm64"
-        case "*"
-            set ARCH "amd64"
-    end
-    set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" $ARCH ".tar.gz")
-    cd $CACHE_PATH
-    if not test -f $ARC
-        curl "https://dl.google.com/go/$ARC" -O
-        sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
-    end
-    fish_add_path "/usr/local/go/bin"
-    fish_add_path "$HOME/go/bin"
-
-    cd $DOT_PATH
-    for p in (cat go-packages)
-        go install $p
-    end
-end
-
 
 for a in $argv
     switch $a
@@ -156,27 +42,13 @@ end
 set -e fish_user_paths[0..-1]
 
 
-# link files
-set LINK_FILES \
+link-file \
     ".vimrc" \
     ".vim/config/autocmd.vim" \
     ".vim/config/lsp.vim" \
     ".gitconfig" \
     ".config/fish/config.fish" \
     ".config/fish/fish_plugins" \
-    ".config/pycodestyle" \
-    ".jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings" \
-    ".svls.toml"
-
-for file in $LINK_FILES
-    if not test $DOT_PATH/$file
-        continue
-    end
-    if not test -d $HOME/(dirname $file)
-        mkdir -p $HOME/(dirname $file)
-    end
-    ln -snfv $DOT_PATH/$file $HOME/$file
-end
 
 source-config
 
@@ -218,13 +90,9 @@ if not test -e $HOME/.vim/autoload/plug.vim
 end
 
 
-python-install
-
-rust-install
-
-node-install
-
-go-install
+for target in python rust node go
+    cd $DOT_PATH && source setup-$target.fish
+end
 
 source-config
 
