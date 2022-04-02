@@ -4,7 +4,6 @@ set NODE_VERSION "16.13.0"
 set PYTHON_VERSION "3.10.4"
 set GO_VERSION "1.17.7"
 
-set HTTPS_REPO false  # --https-repo
 set SKIP_OS_PKG false  # --skip-os-pkg
 
 
@@ -13,21 +12,17 @@ source common.fish
 
 function brew-install
     if not type -q brew
-        echo "brew is required"
-        exit 1
+        echo "brew is required"; exit 1
     end
-    brew upgrade
-    brew install (cat brew-packages)
+    brew upgrade && brew install (cat brew-packages)
 end
 
 
 function apt-install
     if not type -q apt
-        echo "apt is required"
-        exit 1
+        echo "apt is required"; exit 1
     end
-    sudo apt update & sudo apt upgrade -y
-    sudo apt install -y (cat apt-packages)
+    sudo apt update && sudo apt upgrade -y && sudo apt install -y (cat apt-packages)
 end
 
 
@@ -36,27 +31,28 @@ function python-install
     if not test -d $PYENV_ROOT
         git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
     end
-    cd $PYENV_ROOT
-    git pull
+    cd $PYENV_ROOT && git pull
 
     fish_add_path $PYENV_ROOT/bin
-    source $HOME/.config/fish/config.fish
+    source-config
 
     cd $DOT_PATH
     if not test (pyenv global) = $PYTHON_VERSION
-        pyenv install $PYTHON_VERSION -s
-        pyenv global $PYTHON_VERSION
+        pyenv install $PYTHON_VERSION -s && pyenv global $PYTHON_VERSION
     end
 
     function pip-install
         pip install -U -r pip-packages
     end
 
-    if is-mac
-        # for llvmlite
+    if is-mac  # for llvmlite
         LLVM_CONFIG=(brew --prefix llvm@11)/bin/llvm-config pip-install
     else
         pip-install
+    end
+
+    if not test -e $HOME/.config/asciinema/install-id
+        echo "asciinema auth is needed!"
     end
 end
 
@@ -80,10 +76,7 @@ function rust-install
     if not test -d $CACHE_PATH/rust-analyzer
         git clone https://github.com/rust-analyzer/rust-analyzer.git
     end
-    cd rust-analyzer
-    git checkout release
-    git pull
-    cargo xtask install --server
+    cd rust-analyzer && git checkout release && git pull && cargo xtask install --server
 end
 
 
@@ -91,27 +84,22 @@ function node-install
     if not test -d $HOME/.nodenv
         git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
     end
-    cd $HOME/.nodenv
-    git pull
-    src/configure && make -C src
+    cd $HOME/.nodenv && git pull && src/configure && make -C src
 
     fish_add_path $HOME/.nodenv/bin
-    source $HOME/.config/fish/config.fish
+    source-config
 
     if not test -d $HOME/.nodenv/plugins/node-build
         git clone https://github.com/nodenv/node-build.git $HOME/.nodenv/plugins/node-build
     end
-    cd $HOME/.nodenv/plugins/node-build
-    git pull
+    cd $HOME/.nodenv/plugins/node-build && git pull
 
     if not test -d $HOME/.nodenv/plugins/node-build-update-defs
         git clone https://github.com/nodenv/node-build-update-defs.git $HOME/.nodenv/plugins/node-build-update-defs
     end
-    cd $HOME/.nodenv/plugins/node-build-update-defs
-    git pull
+    cd $HOME/.nodenv/plugins/node-build-update-defs && git pull
 
-    nodenv install $NODE_VERSION -s
-    nodenv global $NODE_VERSION
+    nodenv install $NODE_VERSION -s && nodenv global $NODE_VERSION
 
     cd $DOT_PATH
     for p in (cat npm-packages)
@@ -147,33 +135,26 @@ end
 
 for a in $argv
     switch $a
-        case "--https-repo"
-            set HTTPS_REPO true
         case "--skip-os-pkg"
             set SKIP_OS_PKG true
     end
 end
 
+
 for cmd in "git" "curl"
     if not type -q $cmd
-        echo $cmd "is required."
-        exit 1
+        echo $cmd "is required."; exit 1
     end
 end
 
 
 if not test -d $DOT_PATH
-    if $HTTPS_REPO
-        set REPO_URL "https://github.com/hayashikun/dotfiles.git"
-    else
-        set REPO_URL "git@github.com:hayashikun/dotfiles.git"
-    end
-    git clone $REPO_URL $DOT_PATH
+    git clone "git@github.com:hayashikun/dotfiles.git" $DOT_PATH
 end
 
-cd $DOT_PATH
 
 set -e fish_user_paths[0..-1]
+
 
 # link files
 set LINK_FILES \
@@ -191,9 +172,8 @@ for file in $LINK_FILES
     if not test $DOT_PATH/$file
         continue
     end
-    set PARENT_PATH (dirname $file)
-    if not test -d $HOME/$PARENT_PATH
-        mkdir -p $HOME/$PARENT_PATH
+    if not test -d $HOME/(dirname $file)
+        mkdir -p $HOME/(dirname $file)
     end
     ln -snfv $DOT_PATH/$file $HOME/$file
 end
@@ -205,6 +185,7 @@ source-config
 if not test -d $CACHE_PATH
     mkdir $CACHE_PATH
 end
+
 
 if not $SKIP_OS_PKG
     switch (uname -s)
@@ -228,9 +209,7 @@ cd $CACHE_PATH
 if not test -e $CACHE_PATH/font
     git clone https://github.com/powerline/fonts.git --depth=1
 end
-cd fonts
-git pull
-./install.sh
+cd fonts && git pull && ./install.sh
 
 
 # vim-plug
@@ -238,11 +217,8 @@ if not test -e $HOME/.vim/autoload/plug.vim
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 end
 
-python-install
 
-if not test -e $HOME/.config/asciinema/install-id
-    echo "asciinema auth is needed!"
-end
+python-install
 
 rust-install
 
