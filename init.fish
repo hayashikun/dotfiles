@@ -2,6 +2,11 @@
 
 if not test $INIT_LOADED
     set DOT_PATH $HOME/.dotfiles
+    
+    if test -f (dirname (status -f))/.dot_path
+        set DOT_PATH (cat (dirname (status -f))/.dot_path)
+    end
+
     set CACHE_PATH $DOT_PATH/.cache
 
     function link-file
