@@ -183,7 +183,18 @@ cd $DOT_PATH
 set -e fish_user_paths[0..-1]
 
 # link files
-for file in (cat link_files)
+set LINK_FILES \
+    ".vimrc" \
+    ".vim/config/autocmd.vim" \
+    ".vim/config/lsp.vim" \
+    ".gitconfig" \
+    ".config/fish/config.fish" \
+    ".config/fish/fish_plugins" \
+    ".config/pycodestyle" \
+    ".jupyter/lab/user-settings/@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings" \
+    ".svls.toml"
+
+for file in $LINK_FILES
     if not test $DOT_PATH/$file
         continue
     end
