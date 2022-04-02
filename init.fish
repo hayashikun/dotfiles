@@ -26,13 +26,17 @@ if not test $INIT_LOADED
         return (test (uname -s) = "Darwin")
     end
 
+    function is-linux
+        return (test (uname -s) = "Linux")
+    end
 
-    if type -q brew
+
+    if is-mac && type -q brew
         brew upgrade
     end
 
     function brew-install
-        if type -q brew
+        if is-mac && type -q brew
             for p in $argv
                 brew install $p
             end
@@ -40,12 +44,12 @@ if not test $INIT_LOADED
     end
 
     
-    if type -q apt
+    if is-linux && type -q apt
         sudo apt update && sudo apt upgrade
     end
 
     function apt-install
-        if type -q apt
+        if is-linux && type -q apt
             for p in $argv
                 sudo apt install $p
             end
