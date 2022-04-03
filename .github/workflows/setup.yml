@@ -19,10 +19,16 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set DOT_PATH
         run: echo ${GITHUB_WORKSPACE} > ${GITHUB_WORKSPACE}/.dot_path
-      - name: Install fish
+      - name: Install fish (ubuntu)
+        if: runner.os == 'Linux'
         run: |
           sudo apt-add-repository ppa:fish-shell/release-3
           sudo apt update
           sudo apt install fish
+      - name: Install fish (mac)
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install fish
       - name: Run setup script
         run: fish setup-${{ matrix.target }}.fish
