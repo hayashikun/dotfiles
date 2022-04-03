@@ -4,6 +4,8 @@ cd (dirname (status -f)) && source init.fish
 
 set NODE_VERSION "16.13.0"
 
+apt-install build-essential
+
 if not test -d $HOME/.nodenv
     git clone https://github.com/nodenv/nodenv.git $HOME/.nodenv
 end

@@ -28,8 +28,8 @@ if not test -d $CACHE_PATH
 end
 
 
-brew-install jq pwgen gdb tree gcc cmake
-apt-install xclip build-essential jq pwgen gdb lldb tree
+brew-install jq pwgen gdb tree
+apt-install xclip jq pwgen gdb lldb tree
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
