@@ -2,7 +2,7 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set NODE_VERSION "16.13.0"
+set NODE_VERSION (get-version node "16.13.0")
 
 apt-install build-essential
 

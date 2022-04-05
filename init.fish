@@ -58,5 +58,13 @@ if not test $INIT_LOADED
     end
 
 
+    function get-version
+        if test -f "$DOT_PATH/.$argv[1]-version"
+            cat "$DOT_PATH/.$argv[1]-version"
+        else
+            echo $argv[2]
+        end
+    end
+
     set INIT_LOADED 1
 end

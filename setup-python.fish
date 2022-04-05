@@ -2,7 +2,7 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set PYTHON_VERSION "3.10.4"
+set PYTHON_VERSION (get-version python "3.10.4")
 
 brew-install readline zlib xz openssl llvm@11
 apt-install libreadline-dev libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libsqlite3-dev
