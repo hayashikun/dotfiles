@@ -10,7 +10,9 @@ switch (uname -m)
     case "*"
         set ARCH "amd64"
 end
-set ARC (string join "" "go" $GO_VERSION "." (string lower (uname -s)) "-" $ARCH ".tar.gz")
+set OS (string lower (uname -s))
+set ARC "go$GO_VERSION.$OS-$ARCH.tar.gz"
+
 cd $CACHE_PATH
 if not test -f $ARC
     curl https://dl.google.com/go/$ARC -O
