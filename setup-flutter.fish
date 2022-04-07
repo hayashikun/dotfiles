@@ -12,7 +12,7 @@ cd $FLUTTER_PATH && git pull
 git checkout $FLUTTER_VERSION
 
 fish_add_path $FLUTTER_PATH/bin
-fish_add_path $HOME/.pub-cache
+fish_add_path $HOME/.pub-cache/bin
 
 source-config
 
