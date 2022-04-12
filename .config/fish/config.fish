@@ -30,3 +30,14 @@ end
 
 # for exa
 alias la="ls -lah"
+
+
+# for atmark
+if type -q @
+    function cd@; cd (@ $argv); end
+    function cat@; cat (@ $argv); end
+    function ls@; ls (@ $argv); end
+    complete -c cd@ -w @
+    complete -c cat@ -w @
+    complete -c ls@ -w @
+end
