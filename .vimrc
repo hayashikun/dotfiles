@@ -20,6 +20,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'lambdalisue/fern-git-status.vim'
 
 Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'khaveesh/vim-fish-syntax'
@@ -93,9 +94,7 @@ let g:termdebug_wide = 160
 let g:fern#default_hidden=1
 nnoremap <silent> <Leader>f :<C-u>Fern .<CR>
 
-
 " fzf
 nnoremap <silent> <leader>/ :Rg<CR>
 nnoremap <silent> <leader>g :Files<CR>
-
 
