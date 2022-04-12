@@ -1,5 +1,6 @@
 [core]
 	pager = delta
+	excludesFile = $HOME/.gitignore_global
 
 [user]
 	name = Ryosuke Hayashi
