@@ -2,3 +2,5 @@ oh-my-fish/theme-bobthefish
 edc/bass
 jorgebucaran/fisher
 hayashikun/atmark
+evanlucas/fish-kubectl-completions
+lgathy/google-cloud-sdk-fish-completion
