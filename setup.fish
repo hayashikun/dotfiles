@@ -28,7 +28,7 @@ if not test -d $CACHE_PATH
 end
 
 
-brew-install jq pwgen gdb tree gpg
+brew-install jq pwgen gdb tree gpg gh
 apt-install xclip jq pwgen gdb lldb tree
 
 # fisher
