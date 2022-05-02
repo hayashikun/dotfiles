@@ -2,6 +2,8 @@
 
 cd (dirname (status -f)) && source init.fish
 
+apt-install build-essential
+
 cd $DOT_PATH
 if not type -q rustup
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
