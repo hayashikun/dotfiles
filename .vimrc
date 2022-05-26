@@ -92,7 +92,7 @@ let g:termdebug_wide = 160
 
 " Fern
 let g:fern#default_hidden=1
-nnoremap <silent> <Leader>f :<C-u>Fern .<CR>
+nnoremap <silent> <Leader>f :<C-u>Fern . -reveal=%<CR>
 
 " fzf
 nnoremap <silent> <leader>/ :Rg<CR>
