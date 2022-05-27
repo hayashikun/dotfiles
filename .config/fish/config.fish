@@ -21,7 +21,7 @@ if type -q nodenv
 end
 
 
-for al in "ls exa" "diff delta" "cat bat"
+for al in "ls exa" "diff delta" "cat bat" "kc kubectl"
     set p (string split ' ' $al)
     if type -q $p[2]
         alias $p[1]=$p[2]
