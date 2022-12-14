@@ -11,6 +11,7 @@
 	st = status
 	cm = commit
 	stt = status -uno
+	pl = pull
 	di = diff
 	difff = diff --word-diff
 	br = branch
