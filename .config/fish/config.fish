@@ -15,6 +15,10 @@ if type -q pyenv
     pyenv init - | source
 end
 
+if type -q rbenv
+    rbenv init - | source
+end
+
 # nodenv
 if type -q nodenv
     eval (nodenv init - | source)
@@ -41,3 +45,7 @@ if type -q @
     complete -c cat@ -w @
     complete -c ls@ -w @
 end
+
+
+# aws cli
+complete -c aws -f -a '(begin; set -lx COMP_SHELL fish; set -lx COMP_LINE (commandline); /usr/local/bin/aws_completer; end)'
