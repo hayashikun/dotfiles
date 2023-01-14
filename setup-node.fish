@@ -33,3 +33,4 @@ for p in (cat npm-packages)
     end
 end
 
+nodenv rehash
