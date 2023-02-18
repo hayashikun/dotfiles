@@ -17,3 +17,5 @@ joblib
 opencv-python
 pyserial
 fire
+awsume
+awsume-console-plugin
