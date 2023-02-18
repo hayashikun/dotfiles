@@ -2,7 +2,7 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set PYTHON_VERSION (get-version python "3.10.4")
+set PYTHON_VERSION (get-version python "3.10.9")
 
 brew-install readline zlib xz openssl llvm@11
 apt-install build-essential libreadline-dev libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libsqlite3-dev
@@ -21,6 +21,8 @@ if not test (pyenv global) = $PYTHON_VERSION
     pyenv install $PYTHON_VERSION -s && pyenv global $PYTHON_VERSION
 end
 
+source-config
+
 function pip-install
     pip install -U -r pip-packages
 end
@@ -30,6 +32,10 @@ if is-mac  # for llvmlite
 else
     pip-install
 end
+
+# poetry install
+curl -sSL https://install.python-poetry.org | python3 -
+fish_add_path $HOME/.local/bin
 
 link-file \
     .config/pycodestyle \
