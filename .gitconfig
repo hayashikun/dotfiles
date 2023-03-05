@@ -13,6 +13,7 @@
 	cm = commit
 	stt = status -uno
 	pl = pull
+	ph = push
 	di = diff
 	difff = diff --word-diff
 	br = branch
