@@ -13,6 +13,7 @@
 	stt = status -uno
 	pl = pull
 	ph = push
+	phh = push origin HEAD
 	di = diff
 	difff = diff --word-diff
 	br = branch
