@@ -6,13 +6,15 @@ for cmd in git curl
     end
 end
 
+set DOT_PATH $HOME/.dotfiles
 
-if not test -d $HOME/.dotfiles
-    git clone git@github.com:hayashikun/dotfiles.git $HOME/.dotfiles
+if not test -d $DOT_PATH
+    git clone git@github.com:hayashikun/dotfiles.git $DOT_PATH
 end
 
+cd $DOT_PATH
 
-cd (dirname (status -f)) && source init.fish
+source init.fish
 
 set -e fish_user_paths[0..-1]
 
