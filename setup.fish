@@ -7,8 +7,8 @@ for cmd in git curl
 end
 
 
-if not test -d $DOT_PATH
-    git clone git@github.com:hayashikun/dotfiles.git $DOT_PATH
+if not test -d $HOME/.dotfiles
+    git clone git@github.com:hayashikun/dotfiles.git $HOME/.dotfiles
 end
 
 
