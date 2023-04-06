@@ -1,8 +1,5 @@
 #!/usr/bin/env fish
 
-cd (dirname (status -f)) && source init.fish
-
-
 for cmd in git curl
     if not type -q $cmd
         echo $cmd "is required."; exit 1
@@ -15,8 +12,9 @@ if not test -d $DOT_PATH
 end
 
 
-set -e fish_user_paths[0..-1]
+cd (dirname (status -f)) && source init.fish
 
+set -e fish_user_paths[0..-1]
 
 link-file .gitconfig .config/git/ignore .config/fish/config.fish .config/fish/fish_plugins
 
