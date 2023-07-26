@@ -15,8 +15,14 @@ if type -q pyenv
     pyenv init - | source
 end
 
+# rbenv
 if type -q rbenv
     rbenv init - | source
+end
+
+# goenv
+if type -q goenv
+    eval (goenv init - | source)
 end
 
 # nodenv
