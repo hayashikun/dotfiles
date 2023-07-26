@@ -2,24 +2,23 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set GO_VERSION (get-version go "1.20")
+set GO_VERSION (get-version go "1.20.6")
 
-switch (uname -m)
-    case "arm64"
-        set ARCH "arm64"
-    case "*"
-        set ARCH "amd64"
+set -x GOENV_ROOT $HOME/.goenv
+if not test -d $GOENV_ROOT
+    git clone https://github.com/syndbg/goenv.git $GOENV_ROOT
 end
-set OS (string lower (uname -s))
-set ARC "go$GO_VERSION.$OS-$ARCH.tar.gz"
+cd $GOENV_ROOT & git pull
 
-cd $CACHE_PATH
-if not test -f $ARC
-    curl https://dl.google.com/go/$ARC -O
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $ARC
+fish_add_path $GOENV_ROOT/bin
+source-config
+
+cd $DOT_PATH
+if not test (goenv global) = $GO_VERSION
+    goenv install $GO_VERSION -s && goenv global $GO_VERSION
 end
-fish_add_path /usr/local/go/bin
-fish_add_path $HOME/go/bin
+
+source-config
 
 cd $DOT_PATH
 for p in (cat go-packages)
