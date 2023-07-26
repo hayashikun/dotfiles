@@ -9,7 +9,7 @@ apt-install build-essential libreadline-dev libffi-dev libssl-dev zlib1g-dev lib
 
 set -x PYENV_ROOT $HOME/.pyenv
 if not test -d $PYENV_ROOT
-    git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
+    git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
 end
 cd $PYENV_ROOT && git pull
 
