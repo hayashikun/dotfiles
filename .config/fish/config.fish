@@ -8,6 +8,8 @@ if test (uname -s) = "Linux"
     alias pbpaste="xclip -selection c -o" 
 end
 
+# asdf
+source $HOME/.asdf/asdf.fish
 
 # pyenv
 if type -q pyenv
@@ -18,11 +20,6 @@ end
 # rbenv
 if type -q rbenv
     rbenv init - | source
-end
-
-# goenv
-if type -q goenv
-    eval (goenv init - | source)
 end
 
 # nodenv

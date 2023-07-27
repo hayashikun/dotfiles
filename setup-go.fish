@@ -1,22 +1,14 @@
 #!/usr/bin/env fish
 
 cd (dirname (status -f)) && source init.fish
+cd (dirname (status -f)) && source setup-asdf.fish
 
-set GO_VERSION (get-version go "1.20.6")
-
-set -x GOENV_ROOT $HOME/.goenv
-if not test -d $GOENV_ROOT
-    git clone https://github.com/syndbg/goenv.git $GOENV_ROOT
-end
-cd $GOENV_ROOT & git pull
-
-fish_add_path $GOENV_ROOT/bin
 source-config
 
-cd $DOT_PATH
-if not test (goenv global) = $GO_VERSION
-    goenv install $GO_VERSION -s && goenv global $GO_VERSION
-end
+asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+
+asdf install golang latest
+asdf global golang latest
 
 source-config
 
