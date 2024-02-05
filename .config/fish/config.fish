@@ -17,17 +17,6 @@ if type -q pyenv
     pyenv init - | source
 end
 
-# rbenv
-if type -q rbenv
-    rbenv init - | source
-end
-
-# nodenv
-if type -q nodenv
-    eval (nodenv init - | source)
-end
-
-
 for al in "ls exa" "cat bat" "k kubectl" "g git"
     set p (string split ' ' $al)
     if type -q $p[2]
