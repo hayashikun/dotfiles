@@ -2,9 +2,9 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set PYTHON_VERSION (get-version python "3.10.9")
+set PYTHON_VERSION (get-version python "3.10.13")
 
-brew-install readline zlib xz openssl llvm@11
+brew-install readline zlib xz openssl
 apt-install build-essential libreadline-dev libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libsqlite3-dev
 
 set -x PYENV_ROOT $HOME/.pyenv
