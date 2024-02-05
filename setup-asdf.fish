@@ -7,7 +7,7 @@ if test $ASDF_SETUPED
 end
 
 set -x ASDF_ROOT $HOME/.asdf
-set -x ASDF_VERSION v0.12.0
+set -x ASDF_VERSION v0.14.0
 if not test -d $ASDF_ROOT
     git clone git@github.com:asdf-vm/asdf.git $ASDF_ROOT --branch $ASDF_VERSION
 end
