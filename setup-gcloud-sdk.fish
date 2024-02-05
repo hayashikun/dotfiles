@@ -2,7 +2,7 @@
 
 cd (dirname (status -f)) && source init.fish
 
-set GCLOUD_SDK_VERSION (get-version gcloud-sdk "370.0.0")
+set GCLOUD_SDK_VERSION (get-version gcloud-sdk "460.0.0")
 set GCLOUD_SDK_PATH $HOME/google-cloud-sdk
 
 if not test -d $GCLOUD_SDK_PATH
@@ -26,4 +26,4 @@ end
 
 fish_add_path $GCLOUD_SDK_PATH/bin
 yes | gcloud components update
-
+yes | gcloud components install gke-gcloud-auth-plugin

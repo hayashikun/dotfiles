@@ -52,3 +52,6 @@ end
 
 # aws cli
 complete -c aws -f -a '(begin; set -lx COMP_SHELL fish; set -lx COMP_LINE (commandline); /usr/local/bin/aws_completer; end)'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ryosuke_hayashi/google-cloud-sdk/path.fish.inc' ]; . '/Users/ryosuke_hayashi/google-cloud-sdk/path.fish.inc'; end
