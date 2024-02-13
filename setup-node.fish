@@ -14,7 +14,7 @@ source-config
 
 cd $DOT_PATH
 for p in (cat npm-packages)
-    npm install $p
+    npm install -g $p
 end
 
 asdf reshim nodejs
