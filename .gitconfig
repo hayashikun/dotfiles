@@ -17,9 +17,12 @@
 	phh = push origin HEAD
 	di = diff
 	difff = diff --word-diff
+	dis = diff --staged
 	br = branch
 	co = checkout
 	com = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@' | xargs git checkout; }; f"
+	re = restore
+	res = restore --staged
 
 [interactive]
     diffFilter = delta --color-only
