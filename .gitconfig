@@ -12,6 +12,7 @@
 	cm = commit
 	stt = status -uno
 	pl = pull
+	plh = "!f() { git rev-parse --abbrev-ref HEAD | xargs git pull origin; }; f"
 	ph = push
 	phh = push origin HEAD
 	di = diff
