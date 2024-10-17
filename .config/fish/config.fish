@@ -44,3 +44,18 @@ complete -c aws -f -a '(begin; set -lx COMP_SHELL fish; set -lx COMP_LINE (comma
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ryosuke_hayashi/google-cloud-sdk/path.fish.inc' ]; . '/Users/ryosuke_hayashi/google-cloud-sdk/path.fish.inc'; end
+
+
+# utils
+
+function camel_to_snake -d "Convert camelCase to snake_case"
+    set -l string (string replace -ar '([A-Z])' '_\L$1' -- $argv)
+    set -l result (string trim --chars '_' $string)
+    echo $result
+end
+
+function snake_to_camel -d "Convert snake_case to camelCase"
+    set -l string (string replace -ar '_(.)' '\U$1' -- $argv)
+    echo $string
+end
+
