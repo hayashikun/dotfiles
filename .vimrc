@@ -86,7 +86,7 @@ call smartinput#define_rule({
 
 
 " termdebug
-packadd termdebug
+packadd! termdebug
 let g:termdebug_wide = 160
 
 
