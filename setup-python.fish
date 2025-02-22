@@ -1,37 +1,22 @@
 #!/usr/bin/env fish
 
 cd (dirname (status -f)) && source init.fish
+cd (dirname (status -f)) && source setup-asdf.fish
 
-set PYTHON_VERSION (get-version python "3.10.13")
+source-config
+
+set PYTHON_VERSION (get-version python "3.12.9")
 
 brew-install readline zlib xz openssl
 apt-install build-essential libreadline-dev libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libsqlite3-dev
 
-set -x PYENV_ROOT $HOME/.pyenv
-if not test -d $PYENV_ROOT
-    git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
-end
-cd $PYENV_ROOT && git pull
-
-fish_add_path $PYENV_ROOT/bin
-source-config
-
-cd $DOT_PATH
-if not test (pyenv global) = $PYTHON_VERSION
-    pyenv install $PYTHON_VERSION -s && pyenv global $PYTHON_VERSION
-end
+asdf plugin add python
+asdf install python $PYTHON_VERSION
+asdf set -u python $PYTHON_VERSION
 
 source-config
 
-function pip-install
-    pip install -U -r pip-packages
-end
-
-if is-mac  # for llvmlite
-    LLVM_CONFIG=(brew --prefix llvm@11)/bin/llvm-config pip-install
-else
-    pip-install
-end
+pip install -U -r pip-packages
 
 # poetry install
 curl -sSL https://install.python-poetry.org | python3 -

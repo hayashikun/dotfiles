@@ -8,7 +8,7 @@ source-config
 asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
 
 asdf install golang latest
-asdf global golang latest
+asdf set -u golang latest
 
 source-config
 

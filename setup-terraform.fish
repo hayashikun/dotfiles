@@ -8,7 +8,7 @@ source-config
 asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
 
 asdf install terraform latest
-asdf global terraform latest
+asdf set -u terraform latest
 
 source-config
 
