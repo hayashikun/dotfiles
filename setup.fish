@@ -18,7 +18,7 @@ source init.fish
 
 set -e fish_user_paths[0..-1]
 
-link-file .gitconfig .config/git/ignore .config/fish/config.fish .config/fish/fish_plugins
+link-file .gitconfig .config/git/ignore .config/fish/config.fish .config/fish/fish_plugins .config/fish-ai.ini
 
 source-config
 
