@@ -31,6 +31,10 @@ end
 brew-install jq pwgen gdb tree gpg gh git-lfs
 apt-install xclip jq pwgen gdb lldb tree
 
+# mise
+cd $DOT_PATH
+source setup-mise.fish
+
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
     curl -sL https://git.io/fisher | source
@@ -44,17 +48,6 @@ if not test -e $CACHE_PATH/font
     git clone https://github.com/powerline/fonts.git --depth=1
 end
 cd fonts && git pull && ./install.sh
-
-
-# target
-set TARGETS vim python rust node go
-if test -f $DOT_PATH/.target
-    set TARGETS (cat $DOT_PATH/.target)
-end
-
-for t in $TARGETS
-    cd $DOT_PATH && source setup-$t.fish
-end
 
 source-config
 
