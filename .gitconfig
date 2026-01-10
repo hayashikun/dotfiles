@@ -1,6 +1,3 @@
-[core]
-	pager = delta
-
 [user]
 	name = Ryosuke Hayashi
 	email = hayashi@hayashikun.com
@@ -23,12 +20,6 @@
 	com = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@' | xargs git checkout; }; f"
 	res = restore
 	res-st = restore --staged
-
-[interactive]
-    diffFilter = delta --color-only
-
-[delta]
-    navigate = true
 
 [merge]
     conflictstyle = diff3
