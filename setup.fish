@@ -33,8 +33,12 @@ brew-cask-install font-jetbrains-mono iterm2 rectangle
 apt-install xclip jq pwgen gdb lldb tree
 
 # mise
-cd $DOT_PATH
-source setup-mise.fish
+if is-mac
+    brew-install mise
+else
+    curl https://mise.run | sh
+end
+
 
 # fisher
 if not test -e $HOME/.config/fish/functions/fisher.fish
