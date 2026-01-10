@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        target: [go, haskell, node, python, rust]
     steps:
       - uses: actions/checkout@v3
       - name: Set DOT_PATH
@@ -31,4 +30,4 @@ jobs:
           brew update
           brew install fish
       - name: Run setup script
-        run: fish setup-${{ matrix.target }}.fish
+        run: fish setup.fish
