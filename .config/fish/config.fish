@@ -60,3 +60,8 @@ function load_env_file -d "Load env file"
         set -xg $p[1] $p[2]
     end
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
