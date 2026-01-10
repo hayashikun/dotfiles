@@ -49,6 +49,11 @@ function brew-install
     end
 end
 
+function brew-cask-install
+    if is-mac && type -q brew
+        brew install --cask $argv
+    end
+end
 
 if is-linux && type -q apt
     sudo apt update && sudo apt upgrade -y

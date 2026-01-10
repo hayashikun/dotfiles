@@ -29,6 +29,7 @@ end
 
 
 brew-install jq pwgen gdb tree gpg gh git-lfs
+brew-cask-install font-jetbrains-mono iterm2 rectangle
 apt-install xclip jq pwgen gdb lldb tree
 
 # mise
