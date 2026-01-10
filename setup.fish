@@ -43,12 +43,5 @@ end
 fisher install (cat $DOT_PATH/.config/fish/fish_plugins)
 
 
-# powerline
-cd $CACHE_PATH
-if not test -e $CACHE_PATH/font
-    git clone https://github.com/powerline/fonts.git --depth=1
-end
-cd fonts && git pull && ./install.sh
-
 source-config
 
